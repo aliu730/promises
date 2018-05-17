@@ -13,7 +13,7 @@ var getGitHubProfile = function(user, callback) {
   var options = {
     url: 'https://api.github.com/users/' + user,
     headers: { 'User-Agent': 'request' },
-    json: true  // will JSON.parse(body) for us
+    json: true // will JSON.parse(body) for us
   };
 
   request.get(options, function(err, res, body) {
@@ -27,7 +27,29 @@ var getGitHubProfile = function(user, callback) {
   });
 };
 
-var getGitHubProfileAsync; // TODO
+var getGitHubProfileAsync = function(user, callback) {
+  var options = {
+    url: 'https://api.github.com/users/' + user,
+    headers: { 'User-Agent': 'request' },
+    json: true  // will JSON.parse(body) for us
+  };
+
+  return new Promise(function(resolve, reject) {
+
+
+
+  });
+
+  request.get(options, function(err, res, body) {
+    if (err) {
+      callback(err, null);
+    } else if (body.message) {
+      callback(new Error('Failed to get GitHub profile: ' + body.message), null);
+    } else {
+      callback(null, body);
+    }
+  });
+}; // TODO
 
 
 // (2) Asyncronous token generation
